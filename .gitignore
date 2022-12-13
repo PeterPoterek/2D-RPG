@@ -70,3 +70,5 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+AI Only Project/Library/SceneVisibilityState.asset
+AI Only Project/Library/StateCache/SceneView/8c/8cd7c613bf844de3b80696e27a479d5e.json
