@@ -6,12 +6,18 @@ public class Enemy : MonoBehaviour
 {
  public int maxHealth = 5;
  public int currentHealth = 0;
+ public bool isDead;
+
+ BoxCollider2D enemyCollider;
+ public BoxCollider2D playerCollider;
 
  Animator enemyAnimator;
  void Start()
  {
   currentHealth = maxHealth;
   enemyAnimator = GetComponent<Animator>();
+  enemyCollider = GetComponent<BoxCollider2D>();
+  playerCollider = FindObjectOfType<PlayerMovement>().gameObject.GetComponent<BoxCollider2D>();
  }
 
  void Update()
@@ -21,17 +27,25 @@ public class Enemy : MonoBehaviour
 
  public void TakeDamage(int damage)
  {
+  if (isDead)
+   return;
+
+
+  enemyAnimator.SetTrigger("TakeDamage");
+  currentHealth = currentHealth - damage;
+
   if (currentHealth <= 0)
   {
    Death();
   }
 
-  enemyAnimator.SetTrigger("TakeDamage");
-  currentHealth = currentHealth - damage;
-
  }
  void Death()
  {
-  Destroy(gameObject);
+
+  isDead = true;
+  enemyAnimator.SetBool("isDead", isDead);
+  Physics2D.IgnoreCollision(playerCollider, enemyCollider);
+  // Destroy(gameObject);
  }
 }
