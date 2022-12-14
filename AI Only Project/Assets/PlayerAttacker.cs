@@ -34,6 +34,10 @@ public class PlayerAttacker : MonoBehaviour
 
  void HandleAttack()
  {
+  if (playerMovement.isDashing == true)
+   return;
+
+
   if (Input.GetKey(KeyCode.E))
   {
 

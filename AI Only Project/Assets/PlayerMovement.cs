@@ -33,11 +33,12 @@ public class PlayerMovement : MonoBehaviour
  void FixedUpdate()
  {
 
+
   MovePlayer();
   HandleDashing();
  }
 
- //
+
 
 
  void HandleDashing()
@@ -51,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
     // If the dash is not available, do nothing
     return;
    }
-
    // Get the current horizontal movement direction
    float horizontalMovement = Input.GetAxis("Horizontal");
 
@@ -68,7 +68,6 @@ public class PlayerMovement : MonoBehaviour
     dashCooldown = dashCooldownTime; // reset the dash cooldown
    }
   }
-
   //Decrement the dash cooldown timer
   dashCooldown -= Time.deltaTime;
 
@@ -130,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
  }
  void CheckIfMoving()
  {
+
   float horizontalInput = Input.GetAxis("Horizontal");
   // Check if the player is moving
   if (horizontalInput != 0)
@@ -149,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
   float horizontalInput = Input.GetAxis("Horizontal");
   transform.position += new Vector3(horizontalInput, 0, 0) * ControlPlayerSpeed() * Time.deltaTime;
+
   FlipSpirte();
   CheckIfMoving();
 

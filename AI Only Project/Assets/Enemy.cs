@@ -6,13 +6,14 @@ public class Enemy : MonoBehaviour
 {
  public int maxHealth = 5;
  public int currentHealth = 0;
- // Start is called before the first frame update
+
+ Animator enemyAnimator;
  void Start()
  {
   currentHealth = maxHealth;
+  enemyAnimator = GetComponent<Animator>();
  }
 
- // Update is called once per frame
  void Update()
  {
 
@@ -24,6 +25,8 @@ public class Enemy : MonoBehaviour
   {
    Death();
   }
+
+  enemyAnimator.SetTrigger("TakeDamage");
   currentHealth = currentHealth - damage;
 
  }
