@@ -23,7 +23,8 @@ public class PlayerHealth : MonoBehaviour
  {
   if (isDead)
    return;
-
+  if (playerMovement.isDashing)
+   return;
 
   //enemyAnimator.SetTrigger("TakeDamage");
   currentHealth = currentHealth - damage;

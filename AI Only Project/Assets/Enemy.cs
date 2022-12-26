@@ -10,9 +10,9 @@ public class Enemy : MonoBehaviour
  public bool isMoving;
  public bool isInRange;
  public bool isAttacking;
-
  BoxCollider2D enemyCollider;
  public BoxCollider2D playerCollider;
+ PlayerHealth playerHealth;
  Rigidbody2D enemyRigidbody;
  Animator enemyAnimator;
 
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
   currentHealth = maxHealth;
   target = GameObject.FindWithTag("Player").transform;
 
-
+  playerHealth = FindObjectOfType<PlayerHealth>();
   enemyAnimator = GetComponent<Animator>();
   enemyCollider = GetComponent<BoxCollider2D>();
   enemyRigidbody = GetComponent<Rigidbody2D>();
@@ -46,6 +46,8 @@ public class Enemy : MonoBehaviour
 
  void HandleAttacking()
  {
+  if (playerHealth.isDead)
+   return;
   if (isDead)
    return;
 
@@ -66,6 +68,8 @@ public class Enemy : MonoBehaviour
   }
   else
   {
+   enemyAnimator.SetBool("isMoving", true);
+
    // The enemy is outside the range
    if (!enemyAnimator.IsInTransition(0))
    {
@@ -92,13 +96,6 @@ public class Enemy : MonoBehaviour
  {
   // Check if the player is within the attack range
   float distance = Vector3.Distance(transform.position, target.position);
-  if (distance <= attackRange)
-  {
-   // The player is within range, apply damage to the player
-   PlayerHealth player = target.GetComponent<PlayerHealth>();
-   Debug.Log(player);
-   player.TakeDamage(attackDamage);
-  }
 
   // Play the attack animation
   enemyAnimator.SetTrigger("Attack");
@@ -114,7 +111,6 @@ public class Enemy : MonoBehaviour
   if (isAttacking)
    return;
 
-  enemyAnimator.SetBool("isMoving", true);
   Vector3 enemyPos = transform.position;
   Vector3 targetPos = target.position;
 
@@ -182,6 +178,17 @@ public class Enemy : MonoBehaviour
  public void SetAttackToFalse()
  {
   isAttacking = false;
+ }
+ public void DamagePlayer()
+ {
+  // Check if the player is within the attack range
+  float distance = Vector3.Distance(transform.position, target.position);
+  if (distance <= attackRange)
+  {
+   // The player is within range, apply damage to the player
+   PlayerHealth player = target.GetComponent<PlayerHealth>();
+   player.TakeDamage(attackDamage);
+  }
  }
 
  private void OnDrawGizmosSelected()
