@@ -503,8 +503,8 @@ MonoBehaviour:
   isMoving: 0
   isInRange: 0
   playerCollider: {fileID: 0}
-  speed: 0.3
-  attackRange: 0.7
+  speed: 0.1
+  attackRange: 0.6
   target: {fileID: 0}
 --- !u!95 &538874319
 Animator:
@@ -842,8 +842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208962303c9bfb24b9aa93465b84db25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 0.7
-  sprintSpeed: 0.71
+  baseSpeed: 0.4
+  sprintSpeed: 0.5
   dashPower: 1
   dashCooldown: 0
   dashCooldownTime: 1

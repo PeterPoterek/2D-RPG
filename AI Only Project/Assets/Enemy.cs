@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
 
  void Update()
  {
+
   // Calculate the distance between the enemy and the target
   float distance = Vector3.Distance(transform.position, target.position);
 
@@ -44,7 +45,7 @@ public class Enemy : MonoBehaviour
    // The enemy is within range
    if (!isInRange)
    {
-    // The enemy has just entered the range, attack the player
+    // The enemy has just entered the range, reset the timer
     enemyAnimator.SetBool("isMoving", false);
     Attack();
    }
@@ -52,9 +53,14 @@ public class Enemy : MonoBehaviour
   }
   else
   {
-   // The enemy is outside the range, resume its movement
-   ChaseTarget();
-   isInRange = false;
+   // The enemy is outside the range
+   if (!enemyAnimator.IsInTransition(0))
+   {
+    // The enemy is not in a transition between animations, stop the attack behavior and resume its movement
+
+    ChaseTarget();
+    isInRange = false;
+   }
   }
  }
 
@@ -97,7 +103,24 @@ public class Enemy : MonoBehaviour
 
   // Update the enemy's position
   transform.position = enemyPos;
+
+  if (moveDir.x > 0)
+  {
+   //Moving Right
+   transform.localScale = new Vector3(0.8f, 0.8f, 1);
+  }
+  else
+  {
+   //Moving Left
+   transform.localScale = new Vector3(-0.8f, 0.8f, 1);
+
+
+  }
+
+
  }
+
+
 
  public void TakeDamage(int damage)
  {
