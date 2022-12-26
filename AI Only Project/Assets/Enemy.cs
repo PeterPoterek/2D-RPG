@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
  public bool isDead;
  public bool isMoving;
  public bool isInRange;
+ public bool isAttacking;
 
  BoxCollider2D enemyCollider;
  public BoxCollider2D playerCollider;
@@ -35,7 +36,11 @@ public class Enemy : MonoBehaviour
 
  void Update()
  {
+  HandleAttacking();
+ }
 
+ void HandleAttacking()
+ {
   // Calculate the distance between the enemy and the target
   float distance = Vector3.Distance(transform.position, target.position);
 
@@ -83,6 +88,8 @@ public class Enemy : MonoBehaviour
   if (isDead)
    return;
   if (isInRange)
+   return;
+  if (isAttacking)
    return;
 
   enemyAnimator.SetBool("isMoving", true);
@@ -144,6 +151,15 @@ public class Enemy : MonoBehaviour
   enemyAnimator.SetBool("isDead", isDead);
   Physics2D.IgnoreCollision(playerCollider, enemyCollider);
   // Destroy(gameObject);
+ }
+
+ public void SetAttackToTrue()
+ {
+  isAttacking = true;
+ }
+ public void SetAttackToFalse()
+ {
+  isAttacking = false;
  }
 
  private void OnDrawGizmosSelected()
