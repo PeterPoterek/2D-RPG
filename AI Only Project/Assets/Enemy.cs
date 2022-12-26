@@ -64,12 +64,16 @@ public class Enemy : MonoBehaviour
 
  void Attack()
  {
+  if (isDead)
+   return;
   enemyAnimator.SetTrigger("Attack");
  }
 
 
  void ChaseTarget()
  {
+  if (isDead)
+   return;
   if (isInRange)
    return;
 
