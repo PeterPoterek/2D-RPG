@@ -502,10 +502,13 @@ MonoBehaviour:
   isDead: 0
   isMoving: 0
   isInRange: 0
+  isAttacking: 0
   playerCollider: {fileID: 0}
-  speed: 0.1
+  moveSpeed: 0.5
   attackRange: 0.6
+  attackDelay: 1
   target: {fileID: 0}
+  attackDamage: 1
 --- !u!95 &538874319
 Animator:
   serializedVersion: 3
@@ -819,6 +822,7 @@ GameObject:
   - component: {fileID: 1198893037}
   - component: {fileID: 1198893036}
   - component: {fileID: 1198893035}
+  - component: {fileID: 1198893041}
   - component: {fileID: 1198893034}
   - component: {fileID: 1198893038}
   - component: {fileID: 1198893039}
@@ -842,8 +846,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208962303c9bfb24b9aa93465b84db25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 0.4
-  sprintSpeed: 0.5
+  baseMoveSpeed: 1
+  sprintMoveSpeed: 1.5
   dashPower: 1
   dashCooldown: 0
   dashCooldownTime: 1
@@ -1005,6 +1009,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.33}
   m_EdgeRadius: 0
+--- !u!114 &1198893041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198893033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8277cd82286792d4c805cff71d2d2e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  currentHealth: 0
+  isDead: 0
 --- !u!1 &1387168387
 GameObject:
   m_ObjectHideFlags: 3

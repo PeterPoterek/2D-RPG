@@ -16,13 +16,15 @@ public class Enemy : MonoBehaviour
  Rigidbody2D enemyRigidbody;
  Animator enemyAnimator;
 
- public float speed = 0.5f;
+ public float moveSpeed = 0.5f;
  public float attackRange = 1f;
  private float timer = 0.0f;
  public float attackDelay = 1.0f;
 
  Vector3 moveDirection;
  public Transform target;
+
+ public int attackDamage;
  void Start()
  {
   currentHealth = maxHealth;
@@ -88,6 +90,17 @@ public class Enemy : MonoBehaviour
 
  void Attack()
  {
+  // Check if the player is within the attack range
+  float distance = Vector3.Distance(transform.position, target.position);
+  if (distance <= attackRange)
+  {
+   // The player is within range, apply damage to the player
+   PlayerHealth player = target.GetComponent<PlayerHealth>();
+   Debug.Log(player);
+   player.TakeDamage(attackDamage);
+  }
+
+  // Play the attack animation
   enemyAnimator.SetTrigger("Attack");
  }
 
@@ -112,7 +125,7 @@ public class Enemy : MonoBehaviour
   Vector3 moveDir = (targetPos - enemyPos).normalized;
 
   // Scale the movement vector by the speed and deltaTime
-  moveDir *= speed * Time.deltaTime;
+  moveDir *= moveSpeed * Time.deltaTime;
 
   // Move the enemy closer to the target
   enemyPos += moveDir;

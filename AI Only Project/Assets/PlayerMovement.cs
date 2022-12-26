@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
- public float baseSpeed = 1f;
- public float sprintSpeed = 1.5f;
+ public float baseMoveSpeed = 1f;
+ public float sprintMoveSpeed = 1.5f;
 
  public float dashPower = 10f;
  public float dashCooldown = 0;
@@ -100,13 +100,13 @@ public class PlayerMovement : MonoBehaviour
   if (Input.GetKey(KeyCode.LeftShift))
   {
 
-   float speed = baseSpeed + sprintSpeed;
+   float speed = baseMoveSpeed + sprintMoveSpeed;
    return speed;
   }
   else
   {
 
-   float speed = baseSpeed;
+   float speed = baseMoveSpeed;
    return speed;
   }
  }
