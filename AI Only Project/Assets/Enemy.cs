@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
  public int maxHealth = 5;
  public int currentHealth = 0;
  public bool isDead;
+ public bool isInRange;
 
  BoxCollider2D enemyCollider;
  public BoxCollider2D playerCollider;
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
  Animator enemyAnimator;
 
  public float speed = 0.5f;
+ public float attackRange = 1f;
  Vector3 moveDirection;
  public Transform target;
  void Start()
@@ -28,30 +30,68 @@ public class Enemy : MonoBehaviour
   playerCollider = FindObjectOfType<PlayerMovement>().gameObject.GetComponent<BoxCollider2D>();
  }
 
+
+
  void Update()
  {
+  // Calculate the distance between the enemy and the target
+  float distance = Vector3.Distance(transform.position, target.position);
 
-
+  // Check if the distance is within the specified range
+  if (distance <= attackRange)
+  {
+   // The enemy is within range
+   if (!isInRange)
+   {
+    // The enemy has just entered the range, attack the player
+    Attack();
+   }
+   isInRange = true;
+  }
+  else
+  {
+   // The enemy is outside the range, resume its movement
+   ChaseTarget();
+   isInRange = false;
+  }
  }
+
  void FixedUpdate()
  {
-
+  // Move the enemy towards the player
   ChaseTarget();
  }
 
+ void Attack()
+ {
+  enemyAnimator.SetTrigger("Attack");
+ }
+
+
  void ChaseTarget()
  {
-  // Calculate the position that the enemy should move to
-  // by moving towards the player's position at the specified speed
-  Vector2 targetPosition = Vector2.MoveTowards(
-      enemyRigidbody.position,
-      target.transform.position,
-      speed * Time.deltaTime
-  );
+  if (isInRange)
+   return;
 
-  // Move the enemy to the calculated position
-  enemyRigidbody.MovePosition(targetPosition);
+  Vector3 enemyPos = transform.position;
+  Vector3 targetPos = target.position;
+
+  // Calculate the distance to the target
+  float distance = Vector3.Distance(enemyPos, targetPos);
+
+  // Calculate the movement vector
+  Vector3 moveDir = (targetPos - enemyPos).normalized;
+
+  // Scale the movement vector by the speed and deltaTime
+  moveDir *= speed * Time.deltaTime;
+
+  // Move the enemy closer to the target
+  enemyPos += moveDir;
+
+  // Update the enemy's position
+  transform.position = enemyPos;
  }
+
  public void TakeDamage(int damage)
  {
   if (isDead)
@@ -74,5 +114,11 @@ public class Enemy : MonoBehaviour
   enemyAnimator.SetBool("isDead", isDead);
   Physics2D.IgnoreCollision(playerCollider, enemyCollider);
   // Destroy(gameObject);
+ }
+
+ private void OnDrawGizmosSelected()
+ {
+  Gizmos.color = Color.red;
+  Gizmos.DrawWireSphere(transform.position, attackRange);
  }
 }
