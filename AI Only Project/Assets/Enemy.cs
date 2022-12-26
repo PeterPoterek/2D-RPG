@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
  public int maxHealth = 5;
  public int currentHealth = 0;
  public bool isDead;
+ public bool isMoving;
  public bool isInRange;
 
  BoxCollider2D enemyCollider;
@@ -44,6 +45,7 @@ public class Enemy : MonoBehaviour
    if (!isInRange)
    {
     // The enemy has just entered the range, attack the player
+    enemyAnimator.SetBool("isMoving", false);
     Attack();
    }
    isInRange = true;
@@ -77,6 +79,7 @@ public class Enemy : MonoBehaviour
   if (isInRange)
    return;
 
+  enemyAnimator.SetBool("isMoving", true);
   Vector3 enemyPos = transform.position;
   Vector3 targetPos = target.position;
 

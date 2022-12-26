@@ -500,10 +500,11 @@ MonoBehaviour:
   maxHealth: 3
   currentHealth: 0
   isDead: 0
+  isMoving: 0
   isInRange: 0
   playerCollider: {fileID: 0}
-  speed: 0.1
-  attackRange: 0.5
+  speed: 0.3
+  attackRange: 0.7
   target: {fileID: 0}
 --- !u!95 &538874319
 Animator:
