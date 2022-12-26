@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour
 
  public float speed = 0.5f;
  public float attackRange = 1f;
+ private float timer = 0.0f;
+ public float attackDelay = 1.0f;
+
  Vector3 moveDirection;
  public Transform target;
  void Start()
@@ -41,6 +44,9 @@ public class Enemy : MonoBehaviour
 
  void HandleAttacking()
  {
+  if (isDead)
+   return;
+
   // Calculate the distance between the enemy and the target
   float distance = Vector3.Distance(transform.position, target.position);
 
@@ -52,7 +58,7 @@ public class Enemy : MonoBehaviour
    {
     // The enemy has just entered the range, reset the timer
     enemyAnimator.SetBool("isMoving", false);
-    Attack();
+    timer = 0.0f;
    }
    isInRange = true;
   }
@@ -62,23 +68,26 @@ public class Enemy : MonoBehaviour
    if (!enemyAnimator.IsInTransition(0))
    {
     // The enemy is not in a transition between animations, stop the attack behavior and resume its movement
-
+    timer = 0.0f;
     ChaseTarget();
     isInRange = false;
    }
   }
- }
 
- void FixedUpdate()
- {
-  // Move the enemy towards the player
-  ChaseTarget();
+  // Update the timer
+  timer += Time.deltaTime;
+
+  // Check if it's time to attack
+  if (timer >= attackDelay)
+  {
+   // It's time to attack, reset the timer and attack the player
+   timer = 0.0f;
+   Attack();
+  }
  }
 
  void Attack()
  {
-  if (isDead)
-   return;
   enemyAnimator.SetTrigger("Attack");
  }
 
