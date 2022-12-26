@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
  public bool isMoving;
  public bool isInRange;
  public bool isAttacking;
+ public bool canAttack;
  BoxCollider2D enemyCollider;
  public BoxCollider2D playerCollider;
  PlayerHealth playerHealth;
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
  public float attackRange = 1f;
  private float timer = 0.0f;
  public float attackDelay = 1.0f;
+
 
  Vector3 moveDirection;
  public Transform target;
@@ -61,10 +63,24 @@ public class Enemy : MonoBehaviour
    if (!isInRange)
    {
     // The enemy has just entered the range, reset the timer
+    canAttack = true;
     enemyAnimator.SetBool("isMoving", false);
     timer = 0.0f;
    }
    isInRange = true;
+
+   // Check if the enemy is able to attack
+   if (canAttack)
+   {
+    // The enemy is able to attack, update the timer and check if it's time to attack
+    timer += Time.deltaTime;
+    if (timer >= attackDelay)
+    {
+     // It's time to attack, reset the timer and attack the player
+     timer = 0.0f;
+     Attack();
+    }
+   }
   }
   else
   {
@@ -79,18 +95,8 @@ public class Enemy : MonoBehaviour
     isInRange = false;
    }
   }
-
-  // Update the timer
-  timer += Time.deltaTime;
-
-  // Check if it's time to attack
-  if (timer >= attackDelay)
-  {
-   // It's time to attack, reset the timer and attack the player
-   timer = 0.0f;
-   Attack();
-  }
  }
+
 
  void Attack()
  {
@@ -99,6 +105,7 @@ public class Enemy : MonoBehaviour
 
   // Play the attack animation
   enemyAnimator.SetTrigger("Attack");
+  canAttack = true;
  }
 
 
