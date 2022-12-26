@@ -144,7 +144,7 @@ public class Enemy : MonoBehaviour
    return;
 
 
-  enemyAnimator.SetTrigger("TakeDamage");
+  //enemyAnimator.SetTrigger("TakeDamage");
   currentHealth = currentHealth - damage;
 
   if (currentHealth <= 0)
@@ -157,7 +157,7 @@ public class Enemy : MonoBehaviour
  {
 
   isDead = true;
-  enemyAnimator.SetBool("isDead", isDead);
+  enemyAnimator.SetTrigger("Dead");
   Physics2D.IgnoreCollision(playerCollider, enemyCollider);
   // Destroy(gameObject);
  }
