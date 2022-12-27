@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
    {
     // The enemy has just entered the range, reset the timer
     canAttack = true;
-    enemyAnimator.SetBool("isMoving", false);
+    // enemyAnimator.SetBool("isMoving", false);
     timer = 0.0f;
    }
    isInRange = true;
