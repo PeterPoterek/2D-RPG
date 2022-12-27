@@ -507,7 +507,7 @@ MonoBehaviour:
   playerCollider: {fileID: 0}
   moveSpeed: 0.5
   attackRange: 0.6
-  attackDelay: 1.5
+  attackDelay: 0
   target: {fileID: 0}
   attackDamage: 1
 --- !u!95 &538874319

@@ -26,6 +26,8 @@ public class PlayerHealthbar : MonoBehaviour
 
 
 
+
+
  public void SetMaxHealth(int maxHealth)
  {
   slider.maxValue = maxHealth;

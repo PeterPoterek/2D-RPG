@@ -64,7 +64,6 @@ public class Enemy : MonoBehaviour
    {
     // The enemy has just entered the range, reset the timer
     canAttack = true;
-    // enemyAnimator.SetBool("isMoving", false);
     timer = 0.0f;
    }
    isInRange = true;
@@ -72,7 +71,10 @@ public class Enemy : MonoBehaviour
    // Check if the enemy is able to attack
    if (canAttack)
    {
+
     // The enemy is able to attack, update the timer and check if it's time to attack
+    enemyAnimator.SetBool("isMoving", false);
+
     timer += Time.deltaTime;
     if (timer >= attackDelay)
     {

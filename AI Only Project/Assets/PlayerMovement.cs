@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
  public void NormalCollider()
  {
   isDashing = false;
-  playerCollider.size = new Vector2(0.2f, 0.37f);
+  playerCollider.size = new Vector2(0.2f, 0.33f);
  }
  public void DashCollider()
  {
