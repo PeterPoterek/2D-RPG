@@ -8,13 +8,21 @@ public class PlayerHealth : MonoBehaviour
  public int currentHealth;
  public bool isDead;
 
+ PlayerHealthbar playerHealthbar;
+
  public PlayerMovement playerMovement;
+
+ private void Awake()
+ {
+  playerMovement = GetComponent<PlayerMovement>();
+  playerHealthbar = FindObjectOfType<PlayerHealthbar>();
+ }
  void Start()
  {
   currentHealth = maxHealth;
-  playerMovement = GetComponent<PlayerMovement>();
- }
+  playerHealthbar.SetMaxHealth(maxHealth);
 
+ }
  void Update()
  {
 
@@ -28,6 +36,7 @@ public class PlayerHealth : MonoBehaviour
 
   //enemyAnimator.SetTrigger("TakeDamage");
   currentHealth = currentHealth - damage;
+  playerHealthbar.SetCurrentHealth(currentHealth);
 
   if (currentHealth <= 0)
   {

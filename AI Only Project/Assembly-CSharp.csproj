@@ -42,6 +42,7 @@
      <Compile Include="Assets\PlayerWeapon.cs" />
      <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\PlayerHealth.cs" />
+     <Compile Include="Assets\PlayerHealthbar.cs" />
     <Reference Include="UnityEngine">
         <HintPath>D:\UnityHub\2020.3.21f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
