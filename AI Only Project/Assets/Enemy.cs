@@ -179,7 +179,6 @@ public class Enemy : MonoBehaviour
   // Update the enemy's position
   transform.position = enemyPos;
 
-  enemyAnimator.SetFloat("MovementSpeed", moveSpeed);
 
   if (moveDir.x > 0)
   {
