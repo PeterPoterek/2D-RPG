@@ -16,11 +16,16 @@ public class Enemy : MonoBehaviour
  PlayerHealth playerHealth;
  Rigidbody2D enemyRigidbody;
  Animator enemyAnimator;
+ public Vector3 velocity;
 
  public float moveSpeed = 0.5f;
  public float attackRange = 1f;
  private float timer = 0.0f;
  public float attackDelay = 1.0f;
+
+ public float aggroRange = 10.0f;
+ public bool isInAggroRange;
+
 
 
  Vector3 moveDirection;
@@ -43,8 +48,13 @@ public class Enemy : MonoBehaviour
 
  void Update()
  {
+
   HandleAttacking();
+
+
  }
+
+
 
  void HandleAttacking()
  {
@@ -56,48 +66,75 @@ public class Enemy : MonoBehaviour
   // Calculate the distance between the enemy and the target
   float distance = Vector3.Distance(transform.position, target.position);
 
-  // Check if the distance is within the specified range
-  if (distance <= attackRange)
+  // Check if the distance is within the specified aggro range
+  if (distance <= aggroRange)
   {
-   // The enemy is within range
-   if (!isInRange)
-   {
-    // The enemy has just entered the range, reset the timer
-    canAttack = true;
-    timer = 0.0f;
-   }
-   isInRange = true;
+   isInAggroRange = true;
 
-   // Check if the enemy is able to attack
-   if (canAttack)
+   // The player is within the enemy's aggro range, check if they are also within the attack range
+   if (distance <= attackRange)
    {
-
-    // The enemy is able to attack, update the timer and check if it's time to attack
     enemyAnimator.SetBool("isMoving", false);
 
-    timer += Time.deltaTime;
-    if (timer >= attackDelay)
+    // The enemy is within range
+    if (!isInRange)
     {
-     // It's time to attack, reset the timer and attack the player
+     // The enemy has just entered the range, reset the timer
      timer = 0.0f;
-     Attack();
+    }
+    isInRange = true;
+    canAttack = true;
+
+    // Check if the enemy is able to attack
+    if (canAttack)
+    {
+     // The enemy is able to attack, update the timer and check if it's time to attack
+     timer += Time.deltaTime;
+     if (timer >= attackDelay)
+     {
+      // It's time to attack, reset the timer and attack the player
+      timer = 0.0f;
+      Attack();
+
+      // Set the canAttack flag to false to prevent the enemy from attacking again until the attack cooldown has expired
+      canAttack = false;
+     }
+    }
+   }
+   else
+   {
+    enemyAnimator.SetBool("isMoving", true);
+
+    // The player is within the enemy's aggro range but outside the attack range, chase the player
+    if (!enemyAnimator.IsInTransition(0))
+    {
+     // The enemy is not in a transition between animations, stop the attack behavior and resume its movement
+     timer = 0.0f;
+     ChaseTarget();
+     isInRange = false;
     }
    }
   }
   else
   {
+   isInAggroRange = false;
+
    enemyAnimator.SetBool("isMoving", true);
 
-   // The enemy is outside the range
+   // The player is outside the enemy's aggro range, stop the attack behavior and resume its movement
    if (!enemyAnimator.IsInTransition(0))
    {
     // The enemy is not in a transition between animations, stop the attack behavior and resume its movement
     timer = 0.0f;
     ChaseTarget();
     isInRange = false;
+
+    enemyAnimator.SetBool("isMoving", false);
    }
   }
  }
+
+
 
 
  void Attack()
@@ -119,6 +156,10 @@ public class Enemy : MonoBehaviour
    return;
   if (isAttacking)
    return;
+  if (!isInAggroRange)
+   return;
+  isMoving = false;
+
 
   Vector3 enemyPos = transform.position;
   Vector3 targetPos = target.position;
@@ -137,6 +178,8 @@ public class Enemy : MonoBehaviour
 
   // Update the enemy's position
   transform.position = enemyPos;
+
+  enemyAnimator.SetFloat("MovementSpeed", moveSpeed);
 
   if (moveDir.x > 0)
   {
@@ -204,5 +247,9 @@ public class Enemy : MonoBehaviour
  {
   Gizmos.color = Color.red;
   Gizmos.DrawWireSphere(transform.position, attackRange);
+  Gizmos.color = Color.magenta;
+  Gizmos.DrawWireSphere(transform.position, aggroRange);
+
+
  }
 }
