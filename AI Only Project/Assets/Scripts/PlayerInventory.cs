@@ -8,6 +8,7 @@ public class PlayerInventory : MonoBehaviour
  public List<WeaponItem> weaponInventory;
  public WeaponItem currentWeapon;
  public GameObject playerInventoryWindow;
+ public GameObject playerEquipmentWindow;
  public bool playerInventoryActive;
  public GameObject inventorySlot;
  public List<GameObject> inventorySlots;
@@ -44,11 +45,15 @@ public class PlayerInventory : MonoBehaviour
   if (Input.GetKeyDown(KeyCode.Tab) && playerInventoryActive == false)
   {
    playerInventoryWindow.SetActive(true);
+   playerEquipmentWindow.SetActive(true);
+
    playerInventoryActive = true;
   }
   else if (Input.GetKeyDown(KeyCode.Tab) && playerInventoryActive == true)
   {
    playerInventoryWindow.SetActive(false);
+   playerEquipmentWindow.SetActive(false);
+
    playerInventoryActive = false;
   }
 

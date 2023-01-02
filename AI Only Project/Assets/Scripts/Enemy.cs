@@ -11,12 +11,12 @@ public class Enemy : MonoBehaviour
  public bool isInRange;
  public bool isAttacking;
  public bool canAttack;
+
  BoxCollider2D enemyCollider;
  public BoxCollider2D playerCollider;
  PlayerHealth playerHealth;
  Rigidbody2D enemyRigidbody;
  Animator enemyAnimator;
- public Vector3 velocity;
 
  public float moveSpeed = 0.5f;
  public float attackRange = 1f;
@@ -27,11 +27,13 @@ public class Enemy : MonoBehaviour
  public bool isInAggroRange;
 
 
-
  Vector3 moveDirection;
  public Transform target;
 
  public int attackDamage;
+
+
+ public GameObject itemToDrop;
  void Start()
  {
   currentHealth = maxHealth;
@@ -212,7 +214,13 @@ public class Enemy : MonoBehaviour
   isDead = true;
   enemyAnimator.SetTrigger("Dead");
   Physics2D.IgnoreCollision(playerCollider, enemyCollider);
+  DropItem();
   // Destroy(gameObject);
+ }
+
+ void DropItem()
+ {
+  Instantiate(itemToDrop, transform.position, Quaternion.identity);
  }
 
  public void SetAttackToTrue()

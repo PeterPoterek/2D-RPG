@@ -7,6 +7,7 @@ public class PlayerAttacker : MonoBehaviour
  Animator playerAnimator;
  PlayerMovement playerMovement;
  Rigidbody2D playerRigidbody;
+ PlayerStats playerStats;
 
 
 
@@ -22,6 +23,7 @@ public class PlayerAttacker : MonoBehaviour
 
  private void Start()
  {
+  playerStats = GetComponent<PlayerStats>();
   playerAnimator = GetComponent<Animator>();
   playerMovement = FindObjectOfType<PlayerMovement>();
   playerRigidbody = GetComponent<Rigidbody2D>();
@@ -60,7 +62,8 @@ public class PlayerAttacker : MonoBehaviour
   Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, EnemyLayer);
   foreach (Collider2D enemy in enemies)
   {
-   enemy.GetComponent<Enemy>().TakeDamage(damage);
+   enemy.GetComponent<Enemy>().TakeDamage(playerStats.CurrentAttackDamage());
+   Debug.Log(playerStats.CurrentAttackDamage());
 
   }
  }

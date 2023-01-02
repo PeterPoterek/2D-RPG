@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
- public int maxHealth;
- public int currentHealth;
+
  public bool isDead;
 
  PlayerHealthbar playerHealthbar;
 
  public PlayerMovement playerMovement;
+ PlayerStats playerStats;
 
  private void Awake()
  {
+  playerStats = GetComponent<PlayerStats>();
   playerMovement = GetComponent<PlayerMovement>();
   playerHealthbar = FindObjectOfType<PlayerHealthbar>();
  }
  void Start()
  {
-  currentHealth = maxHealth;
-  playerHealthbar.SetMaxHealth(maxHealth);
+  playerStats.currentHealth = playerStats.maxHealth;
+  playerHealthbar.SetMaxHealth(playerStats.maxHealth);
 
  }
  void Update()
@@ -34,11 +35,11 @@ public class PlayerHealth : MonoBehaviour
   if (playerMovement.isDashing)
    return;
 
-  //enemyAnimator.SetTrigger("TakeDamage");
-  currentHealth = currentHealth - damage;
-  playerHealthbar.SetCurrentHealth(currentHealth);
 
-  if (currentHealth <= 0)
+  playerStats.currentHealth = playerStats.currentHealth - damage;
+  playerHealthbar.SetCurrentHealth(playerStats.currentHealth);
+
+  if (playerStats.currentHealth <= 0)
   {
    Death();
   }
