@@ -15,10 +15,10 @@ public class PlayerStats : MonoBehaviour
  public int Arrmor;
  public int magicResist;
 
- PlayerInventory playerInventory;
+ PlayerEquipment playerEquipment;
  void Start()
  {
-  playerInventory = GetComponent<PlayerInventory>();
+  playerEquipment = GetComponent<PlayerEquipment>();
  }
 
 
@@ -29,7 +29,10 @@ public class PlayerStats : MonoBehaviour
 
  public int CurrentAttackDamage()
  {
-
-  return attackDamage * playerInventory.currentWeapon.weaponDamage;
+  if (playerEquipment.currentWeapon == null)
+  {
+   return 0;
+  }
+  return attackDamage * playerEquipment.currentWeapon.weaponDamage;
  }
 }

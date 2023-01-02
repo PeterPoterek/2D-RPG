@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerInventory : MonoBehaviour
 {
  public List<WeaponItem> weaponInventory;
- public WeaponItem currentWeapon;
+
  public GameObject playerInventoryWindow;
  public GameObject playerEquipmentWindow;
  public bool playerInventoryActive;

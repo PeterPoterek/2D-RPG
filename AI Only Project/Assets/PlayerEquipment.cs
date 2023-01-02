@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class PlayerEquipment : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+ public WeaponItem currentWeapon;
+ public GameObject currentWeaponUI;
+ PlayerInventory playerInventory;
+ private void Awake()
+ {
+  playerInventory = GetComponent<PlayerInventory>();
+ }
+ void Start()
+ {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ }
+
+ void Update()
+ {
+
+ }
+
+ void UpdatePlayerEquipment()
+ {
+
+ }
+
+ public void EquipWeapon()
+ {
+  Debug.Log("Click");
+
+ }
 }
