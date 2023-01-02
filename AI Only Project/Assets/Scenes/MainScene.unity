@@ -1123,6 +1123,7 @@ MonoBehaviour:
   playerInventoryWindow: {fileID: 476783782}
   playerInventoryActive: 0
   inventorySlot: {fileID: 857236178}
+  inventorySlots: []
 --- !u!1 &1387168387
 GameObject:
   m_ObjectHideFlags: 3
