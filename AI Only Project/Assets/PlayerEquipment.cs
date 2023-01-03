@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerEquipment : MonoBehaviour
 {
@@ -28,7 +29,12 @@ public class PlayerEquipment : MonoBehaviour
 
  public void EquipWeapon()
  {
-  Debug.Log("Click");
+
+
+
 
  }
+
+
+
 }
