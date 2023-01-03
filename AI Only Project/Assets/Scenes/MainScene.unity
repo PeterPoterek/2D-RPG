@@ -1460,6 +1460,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6381167395888719276, guid: a246a2f3c74226d458de505ed0015b5e, type: 3}
+      propertyPath: m_Transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381167395888719276, guid: a246a2f3c74226d458de505ed0015b5e, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381167395888719276, guid: a246a2f3c74226d458de505ed0015b5e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}

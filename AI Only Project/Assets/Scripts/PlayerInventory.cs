@@ -82,6 +82,13 @@ public class PlayerInventory : MonoBehaviour
 
   }
 
+  for (int i = 0; i < inventorySlots.Count; i++)
+  {
+   Button button = inventorySlots[i].GetComponent<Button>();
+   int slotIndex = i;
+   button.onClick.AddListener(() => InventorySlotPressed(slotIndex));
+  }
+
  }
  public void RemoveItem(WeaponItem weaponItem)
  {
