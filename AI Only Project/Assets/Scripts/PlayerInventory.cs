@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
  public GameObject inventorySlotPrefab;
  public List<GameObject> inventorySlots;
 
- Dictionary<int, GameObject> button_map = new Dictionary<int, GameObject>();
+ public Dictionary<int, GameObject> button_map = new Dictionary<int, GameObject>();
  void Start()
  {
 
@@ -73,11 +73,12 @@ public class PlayerInventory : MonoBehaviour
   inventorySlots.Add(newInventorySlot);
 
 
-
+  // Add inventory slot to Dictionary
   for (int i = 0; i < weaponInventory.Count; i++)
   {
    button_map[i] = inventorySlots[i];
    Debug.Log(button_map[i] + " This slot is now assigned to item");
+
 
   }
 
@@ -85,5 +86,11 @@ public class PlayerInventory : MonoBehaviour
  public void RemoveItem(WeaponItem weaponItem)
  {
   weaponInventory.Remove(weaponItem);
+ }
+
+ public void InventorySlotPressed(int slotIndex)
+ {
+  WeaponItem weapon = weaponInventory[slotIndex];
+  Debug.Log("Player pressed inventory slot " + slotIndex + " which contains the weapon " + weapon.name);
  }
 }
