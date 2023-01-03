@@ -10,15 +10,15 @@ public class PlayerInventory : MonoBehaviour
  public GameObject playerInventoryWindow;
  public GameObject playerEquipmentWindow;
  public bool playerInventoryActive;
- public GameObject inventorySlot;
+ public GameObject inventorySlotPrefab;
  public List<GameObject> inventorySlots;
- // Start is called before the first frame update
+
+ Dictionary<int, GameObject> button_map = new Dictionary<int, GameObject>();
  void Start()
  {
 
  }
 
- // Update is called once per frame
  void Update()
  {
   UpdatePlayerInventory();
@@ -62,7 +62,7 @@ public class PlayerInventory : MonoBehaviour
  public void AddItem(WeaponItem weaponItem)
  {
   weaponInventory.Add(weaponItem);
-  GameObject newInventorySlot = Instantiate(inventorySlot, playerInventoryWindow.transform);
+  GameObject newInventorySlot = Instantiate(inventorySlotPrefab, playerInventoryWindow.transform);
   newInventorySlot.SetActive(true);
 
   // Set the sprite of the new inventory slot to the sprite of the picked up item
@@ -71,6 +71,15 @@ public class PlayerInventory : MonoBehaviour
 
   // Add the new inventory slot to the inventorySlots list
   inventorySlots.Add(newInventorySlot);
+
+
+
+  for (int i = 0; i < weaponInventory.Count; i++)
+  {
+   button_map[i] = inventorySlots[i];
+   Debug.Log(button_map[i] + " This slot is now assigned to item");
+
+  }
 
  }
  public void RemoveItem(WeaponItem weaponItem)
