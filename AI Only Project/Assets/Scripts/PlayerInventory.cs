@@ -88,23 +88,10 @@ public class PlayerInventory : MonoBehaviour
   // Add the new inventory slot to the inventorySlots list
   inventorySlots.Add(newInventorySlot);
 
-
-  // Add inventory slot to Dictionary
-  for (int i = 0; i < weaponInventory.Count; i++)
-  {
-   button_map[i] = inventorySlots[i];
-
-
-
-  }
-
-  for (int i = 0; i < inventorySlots.Count; i++)
-  {
-   Button button = inventorySlots[i].GetComponent<Button>();
-   int slotIndex = i;
-   button.onClick.AddListener(() => InventorySlotPressed(slotIndex));
-  }
-
+  // Add an OnClick event listener to the new inventory slot UI button
+  Button button = newInventorySlot.GetComponent<Button>();
+  int slotIndex = weaponInventory.Count - 1; // Pass the index of the added item as an argument
+  button.onClick.AddListener(() => InventorySlotPressed(slotIndex));
  }
  public void RemoveItem(int index)
  {
