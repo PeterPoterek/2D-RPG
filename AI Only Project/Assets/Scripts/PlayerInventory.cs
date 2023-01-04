@@ -13,7 +13,14 @@ public class PlayerInventory : MonoBehaviour
  public GameObject inventorySlotPrefab;
  public List<GameObject> inventorySlots;
 
+ PlayerEquipment playerEquipment;
+
  public Dictionary<int, GameObject> button_map = new Dictionary<int, GameObject>();
+
+ private void Awake()
+ {
+  playerEquipment = GetComponent<PlayerEquipment>();
+ }
  void Start()
  {
 
@@ -36,8 +43,17 @@ public class PlayerInventory : MonoBehaviour
 
    WeaponItem item = weaponInventory[i];
    GameObject inventorySlot = inventorySlots[i];
-   Image slotImage = inventorySlot.GetComponent<Image>();
-   slotImage.sprite = item.itemIcon;
+
+   // Check if the inventory slot UI game object is not null
+   if (inventorySlot != null)
+   {
+    // Check if the inventory slot UI game object is still active
+    if (inventorySlot.activeSelf)
+    {
+     Image slotImage = inventorySlot.GetComponent<Image>();
+     slotImage.sprite = item.itemIcon;
+    }
+   }
   }
  }
  void TogglePlayerInventory(bool isActive)
@@ -77,7 +93,7 @@ public class PlayerInventory : MonoBehaviour
   for (int i = 0; i < weaponInventory.Count; i++)
   {
    button_map[i] = inventorySlots[i];
-   Debug.Log(button_map[i] + " This slot is now assigned to item");
+
 
 
   }
@@ -90,14 +106,44 @@ public class PlayerInventory : MonoBehaviour
   }
 
  }
- public void RemoveItem(WeaponItem weaponItem)
+ public void RemoveItem(int index)
  {
-  weaponInventory.Remove(weaponItem);
+
+  // Destroy the UI game object that represents the inventory slot
+  GameObject inventorySlot = inventorySlots[index];
+  Destroy(inventorySlot);
+
+  // Remove the inventory slot UI game object from the inventorySlots list
+  inventorySlots.RemoveAt(index);
+
+  // Remove the item from the inventory
+  weaponInventory.RemoveAt(index);
+
+  // Update the indexes of the remaining items and inventory slots
+  for (int i = index; i < weaponInventory.Count; i++)
+  {
+   inventorySlots[i].GetComponent<Button>().onClick.RemoveAllListeners();
+   inventorySlots[i].GetComponent<Button>().onClick.AddListener(() => InventorySlotPressed(i));
+   weaponInventory[i].index = i;
+  }
+
  }
 
  public void InventorySlotPressed(int slotIndex)
  {
-  WeaponItem weapon = weaponInventory[slotIndex];
-  Debug.Log("Player pressed inventory slot " + slotIndex + " which contains the weapon " + weapon.name);
+  if (slotIndex >= 0 && slotIndex < weaponInventory.Count)
+  {
+   // Check if the inventory slot UI game object is still active
+   GameObject inventorySlot = inventorySlots[slotIndex];
+   if (inventorySlot.activeSelf)
+   {
+    WeaponItem weapon = weaponInventory[slotIndex];
+    Debug.Log("Player pressed inventory slot " + slotIndex + " which contains the weapon " + weapon.name);
+
+    playerEquipment.EquipWeapon(weapon);
+    // Remove the item and inventory slot UI game object from the inventory
+    RemoveItem(slotIndex);
+   }
+  }
  }
 }

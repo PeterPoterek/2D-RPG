@@ -38,17 +38,17 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\PlayerInventory.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\PlayerEquipment.cs" />
+     <Compile Include="Assets\Scripts\DragAndDrop.cs" />
      <Compile Include="Assets\Scripts\PlayerAttacker.cs" />
      <Compile Include="Assets\Scripts\PlayerHealthbar.cs" />
+     <Compile Include="Assets\Scripts\PlayerStats.cs" />
      <Compile Include="Assets\Scripts\PlayerWeapon.cs" />
      <Compile Include="Assets\Scripts\ItemPickUp.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Item.cs" />
      <Compile Include="Assets\Scripts\WeaponItem.cs" />
-     <Compile Include="Assets\PlayerStats.cs" />
-     <Compile Include="Assets\PlayerEquipment.cs" />
-     <Compile Include="Assets\DragAndDrop.cs" />
      <None Include="Assets\Shikashi&apos;s Fantasy Icons Pack v2\Shikashi&apos;s Fantasy Icons Pack.txt" />
     <Reference Include="UnityEngine">
         <HintPath>D:\UnityHub\2020.3.21f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

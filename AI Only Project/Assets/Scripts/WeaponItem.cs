@@ -6,4 +6,5 @@ using UnityEngine;
 public class WeaponItem : Item
 {
  public int weaponDamage;
+
 }

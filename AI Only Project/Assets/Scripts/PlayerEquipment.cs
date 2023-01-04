@@ -12,25 +12,18 @@ public class PlayerEquipment : MonoBehaviour
  {
   playerInventory = GetComponent<PlayerInventory>();
  }
- void Start()
- {
 
- }
-
- void Update()
- {
-
- }
 
  void UpdatePlayerEquipment()
  {
 
  }
 
- public void EquipWeapon()
+ public void EquipWeapon(WeaponItem weaponToEquip)
  {
-
-
+  currentWeapon = weaponToEquip;
+  Image slotImage = currentWeaponUI.GetComponent<Image>();
+  slotImage.sprite = weaponToEquip.itemIcon;
 
 
  }
